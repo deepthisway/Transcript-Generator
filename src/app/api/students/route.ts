@@ -36,6 +36,15 @@ export async function POST(req: NextRequest)    {
     try {
         const data = await req.json();
         console.log("data is", data)
+        const isRollExist = await Student.findOne({roll: data.roll.toUpperCase()});
+        if(isRollExist) {
+            return NextResponse.json({
+                status: "error",
+                message: "Student with this roll number already exists"
+            }, {
+                status: 400
+            })
+        }
         // assign grades
         const subjectsWithGrades = data.subjects.map((subject : {name: string; marks: number; code:string}) => ({
             name: subject.name,

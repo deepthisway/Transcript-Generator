@@ -53,17 +53,20 @@ const AddStudent = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
     try {
-      console.log("Data is", data)
+      // console.log("Data is", data)
       const res = await axios.post("http://localhost:3000/api/students", data);
       if (res.status === 201) {
         toast.success("Student added successfully");
         form.reset();
       }
-      console.log(res.data);
+      else {
+        toast.error("Student with this roll number already exists");
+      }
+      // console.log(res.data);
     } catch (error) {
       const msg = error as AxiosError;
       console.log(msg.response?.data);
-      toast.error("Failed to add student");
+      toast.error("Failed to add student, Maybe a duplicate roll number");
     }
     finally {
       setLoading(false);
