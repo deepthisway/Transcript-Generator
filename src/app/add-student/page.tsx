@@ -54,7 +54,7 @@ const AddStudent = () => {
     setLoading(true);
     try {
       // console.log("Data is", data)
-      const res = await axios.post("http://localhost:3000/api/students", data);
+      const res = await axios.post("api/students", data);
       if (res.status === 201) {
         toast.success("Student added successfully");
         form.reset();

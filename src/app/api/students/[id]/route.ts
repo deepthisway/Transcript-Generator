@@ -1,11 +1,13 @@
 import { connectDB } from "@/lib/db";
 import Student from "@/models/student";
-import { NextRequest, NextResponse } from "next/server"; 
+import { NextRequest, NextResponse } from "next/server";
+import nextCors from "nextjs-cors";
+
 /* eslint-disable no-console */
 
 export async function GET(req: NextRequest) {
+    await connectDB();
     try {
-        await connectDB();
         
         // Extract ID from the URL path
         const url = new URL(req.url);
